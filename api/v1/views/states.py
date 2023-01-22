@@ -16,29 +16,6 @@ def all_states():
     """
         Example endpoint returning a list of all the states
     Retrieves a list of all the states
-    ---
-    definitions:
-      State:
-        type: object
-        properties:
-          __class__:
-            type: string
-            description: The string of class object
-          created_at:
-            type: string
-            description: The date the object created
-          id:
-            type: string
-            description: the id of the state
-          name:
-            type: string
-            description: name of the state
-          updated_at:
-            type: string
-            description: The date the object was updated
-    responses:
-      200:
-        description: A list of dictionarys, each dict is a State
     """
     all_states = storage.all(State).values()
     state_list = []
@@ -53,36 +30,6 @@ def all_states():
 def get_state(state_id=None):
     """
     Retrieves a state by a given id
-    ---
-    parameters:
-      - name: state_id
-        in: path
-        type: string
-        enum: ['None', '10098698-bace-4bfb-8c0a-6bae0f7f5b8f']
-        required: true
-        default: None
-    definitions:
-      State:
-        type: object
-        properties:
-          __class__:
-            type: string
-            description: The string of class object
-          created_at:
-            type: string
-            description: The date the object created
-          id:
-            type: string
-            description: the id of the state
-          name:
-            type: string
-            description: name of the state
-          updated_at:
-            type: string
-            description: The date the object was updated
-    responses:
-      200:
-        description: A list of one dictionary of the desired State object
         """
     if state_id is None:
         abort(404)
@@ -98,36 +45,6 @@ def get_state(state_id=None):
 def delete_state(state_id=None):
     """
     Retrieves a state by a given id and deletes it
-    ---
-    parameters:
-      - name: state_id
-        in: path
-        type: string
-        enum: ['None', '10098698-bace-4bfb-8c0a-6bae0f7f5b8f']
-        required: true
-        default: None
-    definitions:
-      State:
-        type: object
-        properties:
-          __class__:
-            type: string
-            description: The string of class object
-          created_at:
-            type: string
-            description: The date the object created
-          id:
-            type: string
-            description: the id of the state
-          name:
-            type: string
-            description: name of the state
-          updated_at:
-            type: string
-            description: The date the object was updated
-    responses:
-      200:
-        description: A list of one dictionary of the desired State object
     """
     if state_id is None:
         abort(404)
@@ -143,29 +60,6 @@ def delete_state(state_id=None):
 def create_state():
     """
     Creates a State object based on the JSON body
-    ---
-    definitions:
-      State:
-        type: object
-        properties:
-          __class__:
-            type: string
-            description: The string of class object
-          created_at:
-            type: string
-            description: The date the object created
-          id:
-            type: string
-            description: the id of the state
-          name:
-            type: string
-            description: name of the state
-          updated_at:
-            type: string
-            description: The date the object was updated
-    responses:
-      201:
-        description: A list of a single dictionary of a State
     """
     if request.get_json:
         kwargs = request.get_json()
@@ -189,36 +83,6 @@ def create_state():
 def update_state(state_id=None):
     """
     Updates a State object based on the JSON body
-    ---
-    parameters:
-      - name: state_id
-        in: path
-        type: string
-        enum: ['None', '10098698-bace-4bfb-8c0a-6bae0f7f5b8f']
-        required: true
-        default: None
-    definitions:
-      State:
-        type: object
-        properties:
-          __class__:
-            type: string
-            description: The string of class object
-          created_at:
-            type: string
-            description: The date the object created
-          id:
-            type: string
-            description: the id of the state
-          name:
-            type: string
-            description: name of the state
-          updated_at:
-            type: string
-            description: The date the object was updated
-    responses:
-      201:
-        description: A list of a single dictionary of a State
     """
     if request.get_json:
         kwargs = request.get_json()
