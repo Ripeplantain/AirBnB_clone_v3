@@ -10,16 +10,19 @@ def stat_return():
     """ return json status: OK """
     return jsonify({"status": "OK"})
 
-
-@app_views.route('/api/v1/stats', methods=['GET'], strict_slashes=False)
+@app_views.route('/stats', methods=['GET'], strict_slashes=False)
 def stat_count():
-    count_data = {
-        "amenities": storage.count("Amenity"),
-        "cities": storage.count("City"),
-        "places": storage.count("Place"),
-        "reviews": storage.count("Review"),
-        "states": storage.count("State"),
-        "users": storage.count("User")
+    """ endpoint that retrieves the # of each objects by type """
+    count_stats = {
+        'amenities': storage.count('Amenity'),
+        'cities': storage.count('City'),
+        'places': storage.count('Place'),
+        'reviews': storage.count('Review'),
+        'states': storage.count('State'),
+        'users': storage.count('User')
     }
+    return jsonify(count_stats)
 
-    return jsonify(count_data)
+
+if __name__ == "__main__":
+    pass
