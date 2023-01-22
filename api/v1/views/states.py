@@ -41,7 +41,7 @@ def delete_state(state_id):
     '''
     try:
         state = storage.get('State', state_id)
-        storate.delete(state)
+        storage.delete(state)
         return jsonify({}), 200
     except Exception:
         abort(404)
