@@ -27,7 +27,7 @@ def get_state(state_id):
         Retrieve one State object
     '''
     try:
-        state = storage.get('State', state_id)
+        state = storage.get(State, state_id)
         return jsonify(state.to_dict())
     except Exception:
         abort(404)
@@ -40,7 +40,7 @@ def delete_state(state_id):
         Delete a State object
     '''
     try:
-        state = storage.get('State', state_id)
+        state = storage.get(State, state_id)
         storage.delete(state)
         return jsonify({}), 200
     except Exception:
