@@ -42,6 +42,7 @@ def delete_state(state_id):
     try:
         state = storage.get(State, state_id)
         storage.delete(state)
+        storage.save()
         return jsonify({}), 200
     except Exception:
         abort(404)
@@ -70,7 +71,7 @@ def put_state(state_id):
     '''
         Update a State object
     '''
-    state = storage.get('State', state_id)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
     if not request.json:
