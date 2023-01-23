@@ -51,36 +51,6 @@ class DBStorage:
                     new_dict[key] = obj
         return (new_dict)
 
-    def get(self, cls, id):
-        """
-        Returns the object based on the class name and its ID, or
-        None if not found
-        """
-        if cls not in classes.values():
-            return None
-
-        all_cls = models.storage.all(cls)
-        for value in all_cls.values():
-            if (value.id == id):
-                return value
-
-        return None
-
-    def count(self, cls=None):
-        """
-        count the number of objects in storage
-        """
-        all_class = classes.values()
-
-        if not cls:
-            count = 0
-            for item in all_class:
-                count += len(models.storage.all(item).values())
-        else:
-            count = len(models.storage.all(cls).values())
-
-        return (count)
-
     def new(self, obj):
         """add the object to the current database session"""
         self.__session.add(obj)
@@ -104,3 +74,21 @@ class DBStorage:
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
+
+    def get(self, cls, id):
+        """This method retrieves one object"""
+        objectId = id
+        if cls is None or cls not in classes.values():
+            return None
+        for clss in classes:
+            if cls is classes[clss]:
+                obj = self.__session.query(classes[clss])
+                obj = obj.filter_by(id=objectId).first()
+                return (obj)
+        return None
+
+    def count(self, cls=None):
+        """counts the numberof objects in storage"""
+
+        numberOfInstances = len(self.all(cls))
+        return (numberOfInstances)

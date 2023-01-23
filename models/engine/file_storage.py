@@ -4,7 +4,6 @@ Contains the FileStorage class
 """
 
 import json
-import models
 from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.city import City
@@ -56,7 +55,7 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except Exception:
+        except:
             pass
 
     def delete(self, obj=None):
@@ -66,36 +65,23 @@ class FileStorage:
             if key in self.__objects:
                 del self.__objects[key]
 
-    def get(self, cls, id):
-        """
-        Returns the object based on the class name and its ID, or
-        None if not found
-        """
-        if cls not in classes.values():
-            return None
-
-        all_cls = models.storage.all(cls)
-        for value in all_cls.values():
-            if (value.id == id):
-                return value
-
-        return None
-
-    def count(self, cls=None):
-        """
-        count the number of objects in storage
-        """
-        all_class = classes.values()
-
-        if not cls:
-            count = 0
-            for item in all_class:
-                count += len(models.storage.all(item).values())
-        else:
-            count = len(models.storage.all(cls).values())
-
-        return (count)
-
     def close(self):
         """call reload() method for deserializing the JSON file to objects"""
         self.reload()
+
+    def get(self, cls, id):
+        """retrieves on object"""
+        if cls is None or cls not in classes.values():
+          return None
+
+        for obj in self.__objects.values():
+            if (cls == obj.__class__ or 
+            cls == obj.__class__.__name__) and obj.id == id:
+                return (obj)
+        return (None)
+
+    def count(self, cls=None):
+        """a method to count the number of objects in storage"""
+        allObjs = self.all(cls)
+        numberOfObjects = len(allObjs)
+        return (numberOfObjects)
