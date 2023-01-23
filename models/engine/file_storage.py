@@ -94,7 +94,7 @@ class FileStorage:
         else:
             count = len(models.storage.all(cls).values())
 
-        return
+        return (count)
 
     def close(self):
         """call reload() method for deserializing the JSON file to objects"""

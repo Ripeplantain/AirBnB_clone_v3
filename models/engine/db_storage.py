@@ -79,7 +79,7 @@ class DBStorage:
         else:
             count = len(models.storage.all(cls).values())
 
-        return
+        return (count)
 
     def new(self, obj):
         """add the object to the current database session"""
