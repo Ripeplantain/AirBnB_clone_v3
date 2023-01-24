@@ -15,7 +15,7 @@ def get_all_amenities():
         Retrieve all Amenity objects
     '''
     amenity_list = []
-    for amenity in storage.all('Amenity').values():
+    for amenity in storage.all(Amenity).values():
         amenity_list.append(amenity.to_dict())
     return jsonify(amenity_list)
 
@@ -27,7 +27,7 @@ def get_amenity(amenity_id):
         Retrieve one Amenity object
     '''
     try:
-        amenity = storage.get('Amenity', amenity_id)
+        amenity = storage.get(Amenity, amenity_id)
         return jsonify(amenity.to_dict())
     except Exception:
         abort(404)
@@ -40,8 +40,9 @@ def delete_amenity(amenity_id):
         Delete a Amenity object
     '''
     try:
-        amenity = storage.get('Amenity', amenity_id)
-        storage.delete(amenity)
+        amenityInstance = storage.get(Amenity, amenity_id)
+        storage.delete(amenityInstance)
+        storage.save()
         return jsonify({}), 200
     except Exception:
         abort(404)
