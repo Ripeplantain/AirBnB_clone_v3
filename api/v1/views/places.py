@@ -16,7 +16,7 @@ def get_all_places(city_id):
     '''
         Retrieve all Places from a certain City
     '''
-    city = storage.get('City', city_id)
+    city = storage.get(City, city_id)
     if not city:
         abort(404)
     place_list = []
@@ -32,7 +32,7 @@ def get_place(place_id):
         Retrieve one Place object
     '''
     try:
-        place = storage.get('Place', place_id)
+        place = storage.get(Place, place_id)
         return jsonify(place.to_dict())
     except Exception:
         abort(404)
@@ -45,7 +45,7 @@ def delete_place(place_id):
         Delete a Place object
     '''
     try:
-        place = storage.get('Place', place_id)
+        place = storage.get(Place, place_id)
         storage.delete(place)
         return jsonify({}), 200
     except Exception:
@@ -58,7 +58,7 @@ def post_place(city_id):
     '''
         Create a Place object
     '''
-    city = storage.get('City', city_id)
+    city = storage.get(City, city_id)
     if not city:
         abort(404)
 
@@ -67,7 +67,7 @@ def post_place(city_id):
     if 'user_id' not in request.get_json():
         return jsonify({"error": "Missing user_id"}), 400
 
-    user = storage.get('User', request.json()['user_id'])
+    user = storage.get(User, request.json()['user_id'])
     if not user:
         abort(404)
     if 'name' not in request.get.json():
@@ -85,7 +85,7 @@ def put_place(place_id):
     '''
         Update a Place object
     '''
-    place = storage.get('Place', place_id)
+    place = storage.get(Place, place_id)
     if place is None:
         abort(404)
     if not request.json:
