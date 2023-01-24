@@ -31,7 +31,7 @@ def get_review(review_id):
         Retrieve one review object
     '''
     try:
-        review = storage.get('Review', review_id)
+        review = storage.get(Review, review_id)
         return jsonify(review.to_dict())
     except Exception:
         abort(404)
@@ -44,8 +44,9 @@ def delete_review(review_id):
         Delete a review object
     '''
     try:
-        review_obj = storage.get('Review', review_id)
-        review_obj.delete()
+        review_obj = storage.get(Review, review_id)
+        storage.delete(review_obj)
+        storage.save()
         return jsonify({}), 200
     except Exception:
         abort(404)
@@ -74,7 +75,7 @@ def put_review(review_id):
     '''
         Update a review object
     '''
-    obj_review = storage.get('Review', review_id)
+    obj_review = storage.get(Review, review_id)
     if obj_review is None:
         abort(404)
     if not request.json:
