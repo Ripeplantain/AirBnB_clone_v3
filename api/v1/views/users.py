@@ -28,7 +28,7 @@ def get_user(user_id):
         Retrieve one user object
     '''
     try:
-        user = storage.get('User', user_id)
+        user = storage.get(User, user_id)
         return jsonify(user.to_dict())
     except Exception:
         abort(404)
@@ -41,8 +41,9 @@ def delete_user(user_id):
         Delete a User object
     '''
     try:
-        user = storage.get('User', user_id)
+        user = storage.get(User, user_id)
         storage.delete(user)
+        storage.save()
         return jsonify({}), 200
     except Exception:
         abort(404)
